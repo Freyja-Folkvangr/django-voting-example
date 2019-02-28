@@ -1,0 +1,14 @@
+{% extends 'continuum/base.html' %}
+{% block title %} Project Details {% endblock %}
+
+{% block body %}
+{% for project in projects %}
+{% if project.name == 'Proyecto 1' %}
+
+	<a href="{% url 'continuum:entervote' project.id %}"><h1>{{ project.name }}</h1></a>
+	<h1>{{ project.amount }}</h1>
+
+{% endif %}
+
+{% endfor %}
+{% endblock %}
