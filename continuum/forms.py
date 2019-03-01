@@ -1,5 +1,6 @@
 from django import forms
-from .models import Vote, Presupuesto, Project
+from .models import Presupuesto, Project, Votes
+
 
 
 class ProjectForm(forms.ModelForm):
@@ -11,5 +12,5 @@ class ProjectForm(forms.ModelForm):
 class VoteForm(forms.ModelForm):
 
 	class Meta:
-		model = Vote
-		fields = [ 'project' ]
+		model = Votes
+		fields = [ 'name', 'votes' ]
