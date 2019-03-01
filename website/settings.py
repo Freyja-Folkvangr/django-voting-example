@@ -25,7 +25,7 @@ SECRET_KEY = 'c-fo2%ctym3e3*z072#)n!w1pmyofr0$t7l1ta20w81ok5og!s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'paseo-continuum.herukuapp.com']
 
 
 # Application definition
