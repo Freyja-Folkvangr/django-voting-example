@@ -23,22 +23,7 @@ def detailProject(request):
 	}
 	return render(request, 'continuum/view_projects.html', context)
 
-def voteProject(request, project_id):
-	project = get_object_or_404(Project, pk=project_id)
-	form = VoteForm()
-	print('antes if')
-	print(form.is_valid())
-	if form.is_valid():
-		print(form.is_valid())
-		vote = form.save(commit=False)
-		form.save()
-		return render(request, 'continuum/index.html')
-	context = {
-		'form': form
-	}
-	return render(request, 'continuum/cast_a_vote.html', context)
-
-def test(request):
+def submitVote(request):
 	form = VoteForm(request.POST or None)
 	if form.is_valid():
 		vote = form.save(commit=True)

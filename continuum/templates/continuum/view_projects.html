@@ -3,22 +3,27 @@
 
 {% block body %}
     <h6 class="border-bottom border-gray pb-2 mb-0">View Projects</h6>
-    {% for project in projects %}
+    {% if projects.count == 0 %}
+        <p><b>There are no projects...</b><br>Please start by adding one!</p>
+    {% else %}
+        {% for project in projects %}
 
-        <div class="media text-muted pt-3">
-            <img src="/static/medusa.svg" height="32px", width="32px">
-            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <a href="{% url 'continuum:test' %}">
-                    <strong class="d-block text-gray-dark">
-                        {{ project.name }}
-                    </strong>
-                </a>
-                {{ project.amount }}
-            </p>
-        </div>
+            <div class="media text-muted pt-3">
+                <img src="/static/medusa.svg" height="32px" , width="32px">
+                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <a href="{% url 'continuum:test' %}">
+                        <strong class="d-block text-gray-dark">
+                            {{ project.name }}
+                        </strong>
+                    </a>
+                    {{ project.amount }}
+                </p>
+            </div>
 
-{#        {% if project.name == 'Proyecto 1' %}#}
-{#        {% endif %}#}
+            {#        {% if project.name == 'Proyecto 1' %}#}
+            {#        {% endif %}#}
 
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
+
 {% endblock %}
