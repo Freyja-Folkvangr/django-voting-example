@@ -2,13 +2,23 @@
 {% block title %} Project Details {% endblock %}
 
 {% block body %}
-{% for project in projects %}
-{% if project.name == 'Proyecto 1' %}
+    <h6 class="border-bottom border-gray pb-2 mb-0">View Projects</h6>
+    {% for project in projects %}
 
-	<a href="{% url 'continuum:entervote' project.id %}"><h1>{{ project.name }}</h1></a>
-	<h1>{{ project.amount }}</h1>
+        <div class="media text-muted pt-3">
+            <img src="/static/medusa.svg" height="32px", width="32px">
+            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <a href="{% url 'continuum:entervote' project.id %}">
+                    <strong class="d-block text-gray-dark">
+                        {{ project.name }}
+                    </strong>
+                </a>
+                {{ project.amount }}
+            </p>
+        </div>
 
-{% endif %}
+{#        {% if project.name == 'Proyecto 1' %}#}
+{#        {% endif %}#}
 
-{% endfor %}
+    {% endfor %}
 {% endblock %}
