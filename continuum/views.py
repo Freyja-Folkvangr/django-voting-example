@@ -14,14 +14,14 @@ def enterProject(request):
 	context = { 
 			'form': form
 			}
-	return render(request, 'continuum/enter_project.html', context)
+	return render(request, 'continuum/create_project.html', context)
 
 def detailProject(request):
 	projects = Project.objects.all()
 	context = {
 		'projects': projects
 	}
-	return render(request, 'continuum/details_projects.html', context)
+	return render(request, 'continuum/view_projects.html', context)
 
 def voteProject(request, project_id):
 	project = get_object_or_404(Project, pk=project_id)
@@ -38,8 +38,8 @@ def voteProject(request, project_id):
 		context = {
 			'form': form
 		}
-		return render(request, 'continuum/enter_vote.html', context)	
+		return render(request, 'continuum/cast_a_vote.html', context)
 	context = {
 		'form': form
 	}
-	return render(request, 'continuum/enter_vote.html', context)
+	return render(request, 'continuum/cast_a_vote.html', context)
