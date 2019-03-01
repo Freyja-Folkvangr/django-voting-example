@@ -2,10 +2,12 @@
 {% block title %}Enter Project {% endblock %}
 
 {% block body %}
+
 <div class="panel-body">
-	<h3>Cast your votes</h3>
-<h5>Example Vote</h5>
-<p>Add your favorite project by project number separated by comma. Example Vote:<br>1, 4, 5, 2</p>
+	<h6>Cast your votes</h6>
+<hr>
+<b>Example Vote</b>
+    <p>Add your favorite project by project number separated by comma.<br><br><b>Example Vote:</b><br>1, 4, 5, 2</p>
     	{% if error_message %}
         <p><strong>{{ error_message }}</strong></p>
         {% endif %}

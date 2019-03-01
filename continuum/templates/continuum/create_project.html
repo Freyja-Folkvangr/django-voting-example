@@ -2,20 +2,24 @@
 {% block title %}Enter Project {% endblock %}
 
 {% block body %}
-<div class="panel-body">
-	<h3>Add a New Project</h3>
-    	{% if error_message %}
-        <p><strong>{{ error_message }}</strong></p>
+
+    <h6 class="border-bottom border-gray pb-2 mb-0">Create Project</h6>
+
+    <div class="media text-muted pt-3"></div>
+
+    <div class="panel-body">
+        {% if error_message %}
+            <p><strong>{{ error_message }}</strong></p>
         {% endif %}
         <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
-        	{% csrf_token %}
-            	{% include 'continuum/form_template.html' %}
-                <div class="form-group">
-                	<div class="col-sm-offset-2 col-sm-10">
-                    	<button type="submit" class="btn btn-success">Submit</button>
-                    </div>
+            {% csrf_token %}
+            {% include 'continuum/form_template.html' %}
+            <div class="form-group">
+                <div class="col-sm">
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </div>
+            </div>
         </form>
-</div>
+    </div>
 
 {% endblock %}
