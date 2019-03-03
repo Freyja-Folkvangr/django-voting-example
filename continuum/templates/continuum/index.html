@@ -1,5 +1,5 @@
 {% extends 'continuum/base.html' %}
-{% block title %} Index {% endblock %}
+{% block title %} Home {% endblock %}
 {% block body %}
 
     <div class="row">
@@ -29,6 +29,7 @@
     </div>
     <div class="row">
         {% if voting_processes %}
+            <h6>View Voting Processes</h6>
             <ul>
                 {% for voting_process in voting_processes %}
                     <li><a href="{% url 'continuum:detail' voting_process.id %}">{{ voting_process.question_text.upper }}</a></li>

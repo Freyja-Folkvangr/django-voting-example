@@ -44,8 +44,10 @@ def create_question(request):
 
 def view_choices(request):
     choices = Choice.objects.all()
+    count = Choice.objects.all().count()
     context = {
-        'choices': choices
+        'choices': choices,
+        'count': count
     }
     return render(request, 'continuum/view_choices.html', context)
 
