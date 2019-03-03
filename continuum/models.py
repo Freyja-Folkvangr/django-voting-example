@@ -1,23 +1,26 @@
 from django.db import models
+import django.utils.timezone as timezone
 
-class Project(models.Model):
-	name = models.CharField(max_length=50, null=True)
-	amount = models.FloatField()
-	active = models.BooleanField(default=True)
+#This is the voting process
+class Question(models.Model):
+	question_text = models.CharField(max_length=256)
+	pub_date = models.DateTimeField('date published', default=timezone.now())
+	budget = models.FloatField(null=False)
 
 	def __str__(self):
-		return self.name + ' - '+str(self.amount)
+		return self.question_text
 
-# class Vote(models.Model):
-# 	name = models.CharField(max_length=256, null=True)
-# 	project = models.ForeignKey(Project, on_delete=models.CASCADE)
-# 	suma = models.IntegerField()
+	def was_published_recently(self):
+		return self.pub_date >= timezone.now() - timezone.timedelta(days=1)
+
+#This is the project choice
+class Choice(models.Model):
+	question = models.ForeignKey(Question, on_delete=models.CASCADE)
+	choice_text = models.CharField(max_length=256)
+	description = models.CharField(max_length=512, default='No description provided')
+	cost = models.FloatField()
+	votes = models.IntegerField(default=0)
 
 class Votes(models.Model):
-	name = models.CharField(max_length=255, null=True)
-	votes = models.CharField(max_length=255)
-
-class Presupuesto(models.Model):
-	project = models.ForeignKey(Project, on_delete=models.CASCADE)
-	qty = models.FloatField()
-
+	name = models.CharField(max_length=256, null=True)
+	votes = models.CharField(max_length=256)

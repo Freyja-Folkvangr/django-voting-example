@@ -22,5 +22,22 @@
             </a>
         </div>
     </div>
+    <div class="row">
+    {% if error_message %}
+            <p><strong>{{ error_message }}</strong></p>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if questions %}
+            <ul>
+                {% for question in questions %}
+                    <li><a href="{% url 'continuum:detail' question.id %}">{{ question.question_text.upper }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No voting processes are available, please create one by selecting the 'Question' tab at the navigation bar.</p>
+        {% endif %}
+    </div>
+
     </div>
 {% endblock %}
