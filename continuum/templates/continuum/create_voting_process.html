@@ -1,16 +1,14 @@
 {% extends 'continuum/base.html' %}
-{% block title %}Enter Project {% endblock %}
+{% block title %} Budget {% endblock %}
 
 {% block body %}
-
-    <h6 class="border-bottom border-gray pb-2 mb-0">Create Project</h6>
-
-    <div class="media text-muted pt-3"></div>
-
-    <div class="panel-body">
-        {% if error_message %}
-            <p><strong>{{ error_message }}</strong></p>
-        {% endif %}
+    <h5 class="border-bottom border-gray pb-2 mb-0">Create a Voting Process</h5>
+    {% if number_of_processes == 0 %}
+        <p><b>There are no voting processes...</b><br>Please start by creating one!</p>
+    {% else %}
+        <p>Please fill this form to create a new voting process</p>
+    {% endif %}
+    <ul>
         <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% include 'continuum/form_template.html' %}
@@ -20,6 +18,5 @@
                 </div>
             </div>
         </form>
-    </div>
-
+    </ul>
 {% endblock %}

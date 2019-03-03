@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Project, Presupuesto, Votes
+from .models import Votes, Question, Choice
 
-admin.site.register(Project)
-admin.site.register(Presupuesto)
 admin.site.register(Votes)
+admin.site.register(Question)
+admin.site.register(Choice)

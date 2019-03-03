@@ -1,0 +1,35 @@
+{% extends 'continuum/base.html' %}
+{% block title %}Enter Project {% endblock %}
+
+{% block body %}
+
+    <h6 class="border-bottom border-gray pb-2 mb-0">Create Project</h6>
+
+    <div class="media text-muted pt-3"></div>
+
+    <div class="panel-body">
+        {% if error_message %}
+            <p><strong>{{ error_message }}</strong></p>
+        {% endif %}
+        {% if form %}
+            <ul>
+                <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% include 'continuum/form_template.html' %}
+                    <div class="form-group">
+                        <div class="col-sm">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </ul>
+        {% else %}
+            <p>You can't insert a choice into a voting process because there is no voting process created. Please start by
+                creating one by selecting the 'Question' tab at the navigation bar.</p>
+        {% endif %}
+    </div>
+
+
+
+
+{% endblock %}
