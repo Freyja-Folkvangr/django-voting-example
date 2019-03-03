@@ -28,14 +28,14 @@
         {% endif %}
     </div>
     <div class="row">
-        {% if questions %}
+        {% if voting_processes %}
             <ul>
-                {% for question in questions %}
-                    <li><a href="{% url 'continuum:detail' question.id %}">{{ question.question_text.upper }}</a></li>
+                {% for voting_process in voting_processes %}
+                    <li><a href="{% url 'continuum:detail' voting_process.id %}">{{ voting_process.question_text.upper }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
-            <p>No voting processes are available, please create one by selecting the 'Question' tab at the navigation bar.</p>
+            <p>No voting processes are available, please create one by selecting the 'Create Voting Process' tab at the navigation bar.</p>
         {% endif %}
     </div>
 

@@ -11,7 +11,7 @@
         {% if error_message %}
             <p><strong>{{ error_message }}</strong></p>
         {% endif %}
-        {% if form %}
+        {% if voting_process %}
             <ul>
                 <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -24,8 +24,9 @@
                 </form>
             </ul>
         {% else %}
-            <p>You can't insert a choice into a voting process because there is no voting process created. Please start by
-                creating one by selecting the 'Question' tab at the navigation bar.</p>
+            <p>You can't insert a choice into a voting process because there is no voting process created. Please start
+                by
+                creating one by selecting the 'Create Voting Process' tab at the navigation bar.</p>
         {% endif %}
     </div>
 
