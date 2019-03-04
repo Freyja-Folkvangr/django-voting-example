@@ -19,12 +19,14 @@ class Choice(models.Model):
 	choice_text = models.CharField(max_length=256)
 	description = models.CharField(max_length=512, default='No description provided')
 	cost = models.FloatField()
-	votes = models.IntegerField(default=0)
 
 class Votes(models.Model):
 	process = models.ForeignKey(Question, on_delete=models.CASCADE)
 	name = models.CharField(max_length=256, null=True)
 	votes = models.CharField(max_length=256)
+
+	def __repr__(self):
+		return self.votes
 
 	def get_vote_list(self):
 		# 1: remove spaces.

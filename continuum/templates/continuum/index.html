@@ -46,7 +46,7 @@
         </div>
         <div class="row">
         <div class="col-sm">
-            Sorting newest first
+            Sorting newest first, click to view results.
         </div>
         </div>
         {% for voting_process in voting_processes %}
@@ -56,7 +56,9 @@
                         <img src="/static/medusa.svg" height="32px" , width="32px">
                         <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                             <strong class="d-block text-gray-dark">
+                                                    <a href="{% url 'continuum:results' voting_process.id %}">
                                 {{ voting_process.question_text.upper }}
+                                                    </a>
                             </strong>
                             {{ voting_process.budget }}
                         </p>

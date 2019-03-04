@@ -99,6 +99,54 @@ def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'continuum/detail.html', {'question': question})
 
+
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'continuum/results.html', {'question': question})
+    votes = Votes.objects.filter(process_id=question_id)
+    choices = Choice.objects.filter(question_id=question.id)
+    choice_list = {}
+    for choice in choices: choice_list[str(choice.id)] = {'id': choice.id, 'votes': 0, 'cost': choice.cost,
+                                                          'name': choice.choice_text}
+    rounds = {}
+    # create dict structure
+    for i in range(0, len(choice_list)):
+        rounds[str(i)] = []
+    results = []
+    expenses = 0
+    # rounds of voting
+    for i in range(0, len(choice_list)):
+        try:
+            for vote in votes:
+                # sum the vote to the 'choice'
+                choice_list[str(vote.get_vote_list()[i])]['votes'] += 1
+                # add the vote to the round
+                rounds[str(i)].append(vote.get_vote_list()[i])
+            # sort dict by greatest number of votes
+            round = sorted(choice_list, key=lambda x: choice_list[x]['votes'])[::-1]
+            for item in round:
+                # check budget
+                tmp = expenses + choice_list[item]['cost']
+                if (question.budget - tmp > 0):
+                    expenses += choice_list[item]['cost']
+                    # we have a winner, add it to results and delete from choice list, proceed with next round
+                    results.append(choice_list[item])
+                    del choice_list[item]
+                    break
+                else:
+                    # winner choice not in budget, delete from choice list and proceed
+                    del choice_list[item]
+        except KeyError: pass
+    print(expenses)
+    print(results)
+    print(rounds)
+    debug = []
+    for item in list(rounds):
+        debug.append(''.join(str(e) + ' ' for e in rounds[item]))
+    context = {
+        'results': results,
+        'rounds': rounds,
+        'debug': debug,
+        'expenses': expenses,
+        'question': question
+    }
+    return render(request, 'continuum/results.html', context)
