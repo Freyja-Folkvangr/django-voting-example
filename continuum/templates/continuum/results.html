@@ -3,7 +3,8 @@
 
 {% block body %}
     <h6 class="border-bottom border-gray pb-2 mb-0">View Results for {{ question.question_text }}</h6>
-    <p>Total Expenses: {{ expenses }}</p>
+    <p>Total budget: ${{ question.budget }}</p>
+    <p>Total Expenses: ${{ expenses }}</p>
         {% for item in results %}
             <div class="media text-muted pt-3">
                 <img src="/static/medusa.svg" height="32px" , width="32px">
