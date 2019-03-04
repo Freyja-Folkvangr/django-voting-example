@@ -126,7 +126,7 @@ def results(request, question_id):
             for item in round:
                 # check budget
                 tmp = expenses + choice_list[item]['cost']
-                if (question.budget - tmp > 0):
+                if (question.budget - tmp >= 0):
                     expenses += choice_list[item]['cost']
                     # we have a winner, add it to results and delete from choice list, proceed with next round
                     results.append(choice_list[item])
