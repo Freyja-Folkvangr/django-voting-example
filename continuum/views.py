@@ -11,7 +11,6 @@ def index(request):
     context = {
         'voting_processes': latest_question_list
     }
-    print(context)
     return render(request, 'continuum/index.html', context)
 
 
@@ -21,12 +20,12 @@ def create_choice(request):
     if form.is_valid():
         vote = form.save(commit=False)
         form.save()
-        return render(request, 'continuum/create_choice.html')
+        return render(request, 'continuum/index.html', {'message': 'Choice created!'})
     context = {
         'form': form,
         'voting_process': processes
     }
-    return render(request, 'continuum/index.html', context)
+    return render(request, 'continuum/create_choice.html', context)
 
 
 def create_question(request):
@@ -38,6 +37,7 @@ def create_question(request):
     }
     if form.is_valid():
         form.save()
+        context['message'] = 'Voting process created!'
         return render(request, 'continuum/index.html', context)
     return render(request, 'continuum/create_voting_process.html', context)
 
@@ -57,13 +57,28 @@ def view_choice_details(request, choice_id):
     return render(request, 'continuum/view_choice_details.html', {'choice': choice})
 
 
-def submitVote(request):
+def cast_a_vote(request):
     form = vote_form(request.POST or None)
     if form.is_valid():
-        vote = form.save(commit=True)
-        form.save()
-        votes = Votes(name=request.form.name, vote=request.form.vote)
-        return render(request, 'continuum/index.html')
+        vote = form.save(commit=False)
+        valid_choices = Choice.objects.filter(question_id=vote.process.id)
+        valid_choice_ids = []
+        for item in valid_choices:
+            valid_choice_ids.append(item.id)
+        try:
+            #1: remove spaces. 2: convert to list separated by comma. 3: convert each to int. 4: convert map obj to list
+            the_vote = list(map(int, vote.votes.replace(' ', '').split(',')))
+            for item in the_vote:
+                if item in valid_choice_ids:
+                    pass
+                else:
+                    return render(request, 'continuum/index.html', {
+                        'error_message': 'Invalid vote....... The format may be incorrect or the choices does not belongs to the selected voting process. HINT: process: {}. your vote: {}. valid votes {}'.format(vote.process.id, the_vote, valid_choice_ids)})
+            form.save()
+            return render(request, 'continuum/index.html', {'message': 'Vote submited!'})
+        except:
+            render(request, 'continuum/index.html', {
+                'error_message': 'Invalid vote.......<br>The format may be incorrect or the choices does not belongs to the selected voting process'})
 
     context = {
         'form': form

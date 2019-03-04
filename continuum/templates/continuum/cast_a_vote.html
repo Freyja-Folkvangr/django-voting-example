@@ -3,23 +3,29 @@
 
 {% block body %}
 
-<div class="panel-body">
-	<h6>Cast your votes</h6>
-<hr>
-<b>Example Vote</b>
-    <p>Add your favorite project by project number separated by comma.<br><br><b>Example Vote:</b><br>1, 4, 5, 2</p>
-    	{% if error_message %}
-        <p><strong>{{ error_message }}</strong></p>
+    <div class="panel-body">
+        <h6>Cast your votes</h6>
+        <hr>
+        <b>Example Vote</b>
+        <p>Add your favorite project by project number separated by comma.<br><br><b>Example Vote:</b><br>
+        <ul>
+            <li><b>Name:</b> Juan Pérez</li>
+            <li><b>Process: </b> Paseo fin de año</li>
+            <li><b>Vote:</b> 1, 4, 5, 2</li>
+        </ul>
+        </p>
+        {% if error_message %}
+            <p><strong>{{ error_message }}</strong></p>
         {% endif %}
         <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
-        	{% csrf_token %}
-            	{% include 'continuum/form_template.html' %}
-                <div class="form-group">
-                	<div class="col-sm-offset-2 col-sm-10">
-                    	<button type="submit" class="btn btn-success">Submit</button>
-                    </div>
+            {% csrf_token %}
+            {% include 'continuum/form_template.html' %}
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </div>
+            </div>
         </form>
-</div>
+    </div>
 
 {% endblock %}

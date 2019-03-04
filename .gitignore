@@ -35,7 +35,7 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Unit submitVote / coverage reports
+# Unit cast_a_vote / coverage reports
 htmlcov/
 .tox/
 .coverage

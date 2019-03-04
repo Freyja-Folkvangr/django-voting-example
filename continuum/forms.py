@@ -13,7 +13,7 @@ class vote_form(forms.ModelForm):
 
 	class Meta:
 		model = Votes
-		fields = [ 'name', 'votes' ]
+		fields = [ 'name', 'process', 'votes' ]
 
 class create_question_form(forms.ModelForm):
 	class Meta:

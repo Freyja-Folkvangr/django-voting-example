@@ -9,9 +9,11 @@
 
     <div class="panel-body">
         {% if error_message %}
-            <p><strong>{{ error_message }}</strong></p>
+            <div class="alert alert-danger" role="alert">
+                <p><strong>{{ error_message }}</strong></p>
+            </div>
         {% endif %}
-        {% if voting_process %}
+        {% if voting_process > 0 %}
             <ul>
                 <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -24,9 +26,11 @@
                 </form>
             </ul>
         {% else %}
-            <p>You can't insert a choice into a voting process because there is no voting process created. Please start
+            <div class="alert alert-danger" role="alert">You can't insert a choice into a voting process because there
+                is no voting process created. Please start
                 by
-                creating one by selecting the 'Create Voting Process' tab at the navigation bar.</p>
+                creating one by selecting the 'Create Voting Process' tab at the navigation
+                bar. {{ voting_process }}</div>
         {% endif %}
     </div>
 

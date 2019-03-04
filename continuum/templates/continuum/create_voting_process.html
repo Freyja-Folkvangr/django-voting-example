@@ -4,7 +4,9 @@
 {% block body %}
     <h5 class="border-bottom border-gray pb-2 mb-0">Create a Voting Process</h5>
     {% if number_of_processes == 0 %}
-        <p><b>There are no voting processes...</b><br>Please start by creating one!</p>
+        <div class="alert alert-danger" role="alert">
+            <p><b>There are no voting processes...</b><br>Please start by creating one!</p>
+        </div>
     {% else %}
         <p>Please fill this form to create a new voting process</p>
     {% endif %}
