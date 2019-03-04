@@ -26,7 +26,7 @@ def create_choice(request):
         'form': form,
         'voting_process': processes
     }
-    return render(request, 'continuum/create_choice.html', context)
+    return render(request, 'continuum/index.html', context)
 
 
 def create_question(request):
