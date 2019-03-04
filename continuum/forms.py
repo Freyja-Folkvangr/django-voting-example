@@ -7,7 +7,7 @@ class create_choice_form(forms.ModelForm):
 
 	class Meta:
 		model = Choice
-		fields = [ 'question', 'choice_text', 'cost']
+		fields = [ 'question', 'choice_text', 'description', 'cost']
 
 class vote_form(forms.ModelForm):
 
