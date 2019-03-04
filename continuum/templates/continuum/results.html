@@ -1,9 +1,30 @@
-<h1>{{ question.question_text }}</h1>
+{% extends 'continuum/base.html' %}
+{% block title %} View Results {% endblock %}
 
+{% block body %}
+    <h6 class="border-bottom border-gray pb-2 mb-0">View Results for {{ question.question_text }}</h6>
+    <p>Total Expenses: {{ expenses }}</p>
+        {% for item in results %}
+            <div class="media text-muted pt-3">
+                <img src="/static/medusa.svg" height="32px" , width="32px">
+                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+
+                        <b>
+                            {{ item.votes }} votes for: {{ item.name.upper }}
+                        </b>
+
+                    ${{ item.cost }}
+                </p>
+            </div>
+        {% endfor %}
+    <hr>
+    <b>Debug: </b>
+Votes per round <br>
 <ul>
-{% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+{% for item in debug %}
+    <li>{{ item }}</li>
 {% endfor %}
 </ul>
+{% endblock %}
 
-<a href="{% url 'continuum:view_choices' question.id %}">Vote again?</a>
+
