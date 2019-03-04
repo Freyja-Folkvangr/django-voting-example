@@ -25,3 +25,11 @@ class Votes(models.Model):
 	process = models.ForeignKey(Question, on_delete=models.CASCADE)
 	name = models.CharField(max_length=256, null=True)
 	votes = models.CharField(max_length=256)
+
+	def get_vote_list(self):
+		# 1: remove spaces.
+		# 2: convert to list separated by comma.
+		# 3: remove duplicates
+		# 4: convert each to int.
+		# 5: convert map obj to list
+		return list(map(int, dict.fromkeys(self.votes.replace(' ', '').split(','))))

@@ -66,14 +66,23 @@ def cast_a_vote(request):
         for item in valid_choices:
             valid_choice_ids.append(item.id)
         try:
-            #1: remove spaces. 2: convert to list separated by comma. 3: convert each to int. 4: convert map obj to list
-            the_vote = list(map(int, vote.votes.replace(' ', '').split(',')))
+            # 1: remove spaces.
+            # 2: convert to list separated by comma.
+            # 3: remove duplicates
+            # 4: convert each to int.
+            # 5: convert map obj to list
+            the_vote = list(map(int, dict.fromkeys(vote.votes.replace(' ', '').split(','))))
+            if len(the_vote) != len(valid_choice_ids):
+                return render(request, 'continuum/index.html', {
+                    'error_message': 'Your vote length is {} and it should be {}. Please include all choices in your vote ordered by priority. Consider that duplicates are removed automatically.'.format(
+                        len(the_vote), len(valid_choice_ids))})
             for item in the_vote:
                 if item in valid_choice_ids:
                     pass
                 else:
                     return render(request, 'continuum/index.html', {
-                        'error_message': 'Invalid vote....... The format may be incorrect or the choices does not belongs to the selected voting process. HINT: process: {}. your vote: {}. valid votes {}'.format(vote.process.id, the_vote, valid_choice_ids)})
+                        'error_message': 'Invalid vote....... The format may be incorrect or the choices does not belongs to the selected voting process. HINT: process: {}. your vote: {}. valid votes {}'.format(
+                            vote.process.id, the_vote, valid_choice_ids)})
             form.save()
             return render(request, 'continuum/index.html', {'message': 'Vote submited!'})
         except:
