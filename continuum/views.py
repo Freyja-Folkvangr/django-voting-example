@@ -101,18 +101,22 @@ def detail(request, question_id):
 
 
 def results(request, question_id):
+    # The voting results are calculated each time the view is loaded, that allows to show real time results while a process is running and participants are voting.
+    # In the other hand we save the raw vote to the db
     question = get_object_or_404(Question, pk=question_id)
     votes = Votes.objects.filter(process_id=question_id)
     choices = Choice.objects.filter(question_id=question.id)
     choice_list = {}
+    #We create a dict of dicts with all choices and their performance. For each round when a choice wins, is deleted from this variable and sent to the results list
     for choice in choices: choice_list[str(choice.id)] = {'id': choice.id, 'votes': 0, 'cost': choice.cost,
                                                           'name': choice.choice_text}
     rounds = {}
-    # create dict structure
+    # create dict structure with all their indexes
     for i in range(0, len(choice_list)):
         rounds[str(i)] = []
     results = []
-    expenses = 0
+    expenses = 0 # Count the expenses to discard options with higher cost that the budget.
+    # We have a list of votes, each vote is a list too, so we can traet it as a matrix, each column is a round of voting, so we iterate them vertically. We don't transpose, instead of that we use an iterative approach instead of a recursive one because of performance impact.
     # rounds of voting
     for i in range(0, len(choice_list)):
         try:
@@ -126,6 +130,7 @@ def results(request, question_id):
             for item in round:
                 # check budget
                 tmp = expenses + choice_list[item]['cost']
+                # if budget = ok, then apply the change
                 if (question.budget - tmp >= 0):
                     expenses += choice_list[item]['cost']
                     # we have a winner, add it to results and delete from choice list, proceed with next round
@@ -135,6 +140,7 @@ def results(request, question_id):
                 else:
                     # winner choice not in budget, delete from choice list and proceed
                     del choice_list[item]
+        # When we delete an element, we can have KeyError because we already assigned the range (of iteration)
         except KeyError: pass
     print(expenses)
     print(results)
